@@ -1,43 +1,148 @@
-This fork is only here because I want to share my compiled Flatpak extension. I was guided throuh the process entirely by AI, but the final flatpak is based entirely on the original code.
+GIMP Deskew Plug-In
+===================
 
-Deskew is a simple plugin to fix skewed scanned documents.
+This fork exists to distribute a precompiled Flatpak extension of Deskew 1.2
+for GIMP 3.
+
+The plug-in and its deskewing functionality are based entirely on the original
+upstream source code. The Flatpak packaging was created with AI-assisted
+guidance.
+
+This is an unofficial community build.
+
 
 Usage
 =====
 
-Click Layer => Transform => Deskew.
+Open an image and click:
 
-The plugin has no options. GIMP will simply auto-straighten ("deskew") the image.
+    Layer => Transform => Deskew
 
-Installation
-============
+The plug-in has no options. GIMP will automatically attempt to straighten
+the active layer.
 
-Building/installation procedure depends on where you got the source code from.
+If Deskew does not work, make sure the image is in RGB mode and remove the
+alpha channel from the active layer first:
 
-If you got source code from Git repository,
+    Layer => Transparency => Remove Alpha Channel
 
-	./autogen.sh
-	make
-	make install
 
-If you got a tarball with a version,
+Flatpak Installation
+====================
 
-	./configure
-	make
-	make install
+This package is intended for GIMP 3 installed through Flatpak.
 
-For both ./autogen.sh and ./configure you can use --prefix=INSTALL_PATH, where 
-a typical installation path is /usr. By default /usr/local is used.
+Download the following file from the Releases page:
+
+    org.gimp.GIMP.Plugin.Deskew.flatpak
+
+Deskew should be installed in the same Flatpak scope as GIMP.
+
+Check whether GIMP is installed for the current user:
+
+    flatpak list --user | grep org.gimp.GIMP
+
+Check whether GIMP is installed system-wide:
+
+    flatpak list --system | grep org.gimp.GIMP
+
+
+User Installation
+=================
+
+If GIMP is installed for the current user, run:
+
+    flatpak install --user ./org.gimp.GIMP.Plugin.Deskew.flatpak
+
+
+System-Wide Installation
+========================
+
+If GIMP is installed system-wide, run:
+
+    sudo flatpak install --system ./org.gimp.GIMP.Plugin.Deskew.flatpak
+
+
+Restarting GIMP
+===============
+
+After installation, restart GIMP completely:
+
+    flatpak kill org.gimp.GIMP
+    flatpak run org.gimp.GIMP
+
+Deskew should appear under:
+
+    Layer => Transform => Deskew
+
+
+Uninstallation
+==============
+
+Remove a user installation with:
+
+    flatpak uninstall --user org.gimp.GIMP.Plugin.Deskew
+
+Remove a system-wide installation with:
+
+    sudo flatpak uninstall --system org.gimp.GIMP.Plugin.Deskew
+
+
+Building from Source
+====================
+
+If you downloaded the source code from Git:
+
+    ./autogen.sh
+    make
+    make install
+
+If you downloaded a release tarball:
+
+    ./configure
+    make
+    make install
+
+Both ./autogen.sh and ./configure support a custom installation prefix:
+
+    ./configure --prefix=INSTALL_PATH
+
+A typical native Linux installation path is /usr. The default is /usr/local.
+
 
 Copyrights
 ==========
 
-Original developers: 2007 Karl Chen <quarl@cs.berkeley.edu>
+Original developer:
 
-Additional code changes: Aleksandr Prokudin, Máirín Duffy, Freso, Alexander Dorokhine.
+    Karl Chen <quarl@cs.berkeley.edu>
 
-Distributed under GPL v2+ (see COPYING).
+Additional code changes:
 
-Uses Radon skew detection algorithm and code from the PageTools project
-(http://sourceforge.net/projects/pagetools).  kale4@users.sourceforge.net,
-yet@users.sourceforge.net.
+    Aleksandr Prokudin
+    Máirín Duffy
+    Freso
+    Alexander Dorokhine
+
+Distributed under GPL v2 or later. See COPYING.
+
+Deskew uses the Radon skew-detection algorithm and code from the PageTools
+project:
+
+    http://sourceforge.net/projects/pagetools
+
+Original PageTools contributors:
+
+    kale4@users.sourceforge.net
+    yet@users.sourceforge.net
+
+
+Disclaimer
+==========
+
+This is an unofficial Flatpak build and is not affiliated with GIMP or
+Flathub.
+
+The Flatpak extension was compiled from the original Deskew 1.2 source code.
+No ownership is claimed over the original plug-in, its algorithms, or the
+work of its developers and contributors.
